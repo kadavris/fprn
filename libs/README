@@ -1,0 +1,9 @@
+Original code by Andrej Pakhutin (pakhutin@gmail.com), 2013
+
+This code was once just a part of fprn project, but later transformed into self-contained library now called AP's Toolkit
+Note, that fprn was not yet transformed to use the new library, so this code remains here.
+
+For the AP's Toolkit library go to:
+* Main repository at the github: git clone https://github.com/kadavris/aps-toolkit.git
+* Secondary at sourceforge: git clone git://git.code.sf.net/p/apstoolkit/code apstoolkit-code
+* Compiled libraries at sourceforge: http://sourceforge.net/projects/apstoolkit/files/?source=navbar

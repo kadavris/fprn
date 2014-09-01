@@ -1,0 +1,15 @@
+.cproject
+.project
+.settings/*
+*.cbp
+*.layout
+fprn/doxydoc/*
+*.log
+*.o
+*.rar
+*.7z
+*.a
+*.tar
+*.bz2
+upload
+fprn/fprn

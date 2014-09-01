@@ -1,0 +1,84 @@
+#!/bin/sh
+# fprn Service daemon for ski training system. Fiscal printers driver
+# Copyright by Andrej Pakhutin kadavris@gmail.com
+#
+# chkconfig:   - 95 30
+# description: Service daemon for ski training system. Fiscal printers driver.
+# processname: fprn
+# pidfile:     /var/run/fprn.pid
+
+### BEGIN INIT INFO
+# Provides: fprn
+# Required-Start: network
+# Required-Stop: network
+# Should-Start: 
+# Should-Stop: 
+# Default-Start: 
+# Default-Stop: 
+# Short-Dscription: Service daemon for ski training system. Fiscal printers driver.
+# Description: Service daemon for ski training system. Fiscal printers driver.
+### END INIT INFO
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+exec="/usr/bin/fprn"
+prog=$(basename $exec)
+PIDFILE=/var/run/fprn.pid
+
+[ -e /etc/sysconfig/$prog ] && . /etc/sysconfig/$prog
+: ${OPTIONS:=-f /etc/fprn/fprn.conf}
+
+lockfile=/var/lock/subsys/$prog
+
+start() {
+    [ "$EUID" != "0" ] && exit 4
+    echo -n $"Starting $prog: "
+    daemon $exec $OPTIONS
+    retval=$?
+    echo
+    [ $retval -eq 0 ] && touch $lockfile
+    return $retval
+}
+
+stop() {
+    [ "$EUID" != "0" ] && exit 4
+    echo -n $"Stopping $prog: "
+    killproc $prog
+    retval=$?
+    echo
+    [ $retval -eq 0 ] && rm -f $lockfile
+    return $retval
+}
+
+restart() {
+    stop
+    start
+}
+
+case "$1" in
+    start|stop|restart)
+        $1
+        ;;
+    force-reload)
+        restart
+        ;;
+    status)
+        status $prog
+        ;;
+    try-restart|condrestart)
+        if status $prog >/dev/null ; then
+            restart
+        fi
+	;;
+    reload)
+        status $prog >/dev/null || exit 7
+        # If config can be reloaded without restarting, implement it here,
+        # remove the "exit", and add "reload" to the usage message below.
+        action $"Service $prog does not support the reload action: " /bin/false
+        exit 3
+        ;;
+    *)
+        echo $"Usage: $0 {start|stop|status|restart|try-restart|force-reload}"
+        exit 2
+esac

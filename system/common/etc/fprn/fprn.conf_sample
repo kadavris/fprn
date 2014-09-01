@@ -1,0 +1,37 @@
+# actually a logging level
+# to prevent daemonizing use -d option in command line
+debuglevel 11
+
+#pidfile /var/run/fprn.pid
+
+# TCP config
+# bind IP [retries[ sleep in-between]]
+# IP = 0.0.0.0. for bind to any if, retries > 0 to retry in case of errors (default = 1 try)
+# sleep > 0 secs to sleep between retries (default = 10 sec)
+bind 192.168.1.101 5 10
+port 2011
+maxTCPSessions 5
+# timeout in seconds 1..60
+TCPtimeOut 10
+
+# device config:
+#
+# deviceId type tty_path
+#   deviceId != 0
+# valid types:
+#   BROKEN! maria301 - Maria 301MTM (firmware M301T7)
+#   shtrih_ltfrk - shtrih-Light-FR-K
+device 1 shtrih_ltfrk /dev/ttyS2
+# printer admin password. mandatory!
+options password 30
+# separate with commas. you can use ranges like 2400-19200
+#   known values: 1200, 1800, 2400, 4800, 9600, 19200, 38400, 57600, 115200,
+#   230400, 460800, 500000, 576000, 921600, 1000000, 1152000, 1500000, 2000000, 2500000, 3000000, 3500000, 4000000
+# if no options speed is set here then driver's default list is used if any.
+options speeds 115200,2400-115200
+
+#device 2 maria301 /dev/ttyS1
+
+# microseconds. 10000 <= polltime <= 999999
+#polltime 100000
+

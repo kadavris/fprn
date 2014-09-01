@@ -1,0 +1,16 @@
+# Daemons copyright by Andrej Pakhutin kadavris@gmail.com
+
+[Unit]
+Description=Fiscal printers control module
+After=syslog.target network.target
+
+[Service]
+Type=forking
+#EnvironmentFile=/etc/sysconfig/fprn
+#ExecStartPre=
+ExecStart=/usr/bin/fprn -f /etc/fprn/fprn.conf
+ExecStop=/bin/kill -HUP `cat /run/fprn.pid`
+#ExecReload=/bin/kill -HUP $MAINPID
+
+[Install]
+WantedBy=multi-user.target
