@@ -13,3 +13,4 @@ fprn/doxydoc/*
 *.bz2
 upload
 fprn/fprn
+fprn/versioning.c
